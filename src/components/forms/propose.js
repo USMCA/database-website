@@ -71,7 +71,6 @@ class ProposeForm extends React.Component {
     <CompetitionsSelect
       s={4}
       type={ competitionsInputOptions.MEMBER }
-      publicDatabase={ true }
       disabled={ this.props.edit }
       { ...input }
       { ...rest } />

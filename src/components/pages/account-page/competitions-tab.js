@@ -18,9 +18,9 @@ const PermissionsModal = ({ defaultValue, competition_id, user_id }) => (
   <Modal
     header="Change Permissions"
     trigger={<a className="teal-text text-darken-3 underline-hover">change permissions</a>}>
-    <Forms.ChangePermissions 
-      defaultValue={ defaultValue } 
-      competition_id={ competition_id } 
+    <Forms.ChangePermissions
+      defaultValue={ defaultValue }
+      competition_id={ competition_id }
       user_id = { user_id } />
   </Modal>
 );
@@ -110,23 +110,18 @@ class CompetitionsTab extends React.Component {
         title: () => "Information",
         view: () => <div className="round-container">
           <ul>
-            <li><h3>Competition Info<a className="right black-text"><i className="fa fa-pencil" aria-hidden="true" /></a></h3></li>
-            <li>Name: { competition.name }</li>
-            <li>Short name: { competition.short_name }</li>
-            <li>Website: { (competition.website) ? <a href={ makeURL(competition.website) } className="teal-text text-darken-3 underline-hover">{ competition.website }</a> : "N/A"}</li>
             <li><h3>Membership Info</h3></li>
             <li>Your are a: <span className="bold-text">{ permissionsDisplay[membership] }</span></li>
             { membership === DIRECTOR &&  <li><a className="teal-text text-darken-3 underline-hover">Step down as director</a></li> }
             <li><a className="teal-text text-darken-3 underline-hover">Leave competition</a></li>
-            {
-              (membership === DIRECTOR || membership === SECURE) && (
-                <div>
-                  <li><h3>Database</h3></li>
-                  <li><Link to={ `/view-database/${competition._id}` } className="waves-effect waves-light btn teal darken-3">View database</Link></li>
-                </div>
-              )
-            }
           </ul>
+          {
+            (membership === DIRECTOR || membership === SECURE) && (
+              <div>
+                <Link to={ `/view-database/${competition._id}` } className="waves-effect waves-light btn teal darken-3">View database</Link>
+              </div>
+            )
+          }
         </div>
       },
       "members": {
@@ -156,7 +151,7 @@ class CompetitionsTab extends React.Component {
       "contests": {
         title: () => "Contests",
         view: () => <div className="round-container">
-          { membership === DIRECTOR && 
+          { membership === DIRECTOR &&
             <Modal header="Create Contest" trigger={ <Button className="teal darken-3" waves="light">Create contest</Button> }>
               <CreateContestForm competition_id={ competition._id } />
             </Modal>
@@ -187,7 +182,7 @@ class CompetitionsTab extends React.Component {
           {
             content && content.map((competition, idx) => (
               <div key={idx}>
-                <h2 className="teal-text text-darken-3">{ competition.short_name }</h2>
+                <h2 className="teal-text text-darken-3"><a href={ competition.website ? makeURL(competition.website) : '#' } className="teal-text text-darken-3 underline-hover">{ competition.name }</a> { competition.short_name && '(' + competition.short_name + ')' }</h2>
                 <div style={{borderBottom: "1px solid #cfd8dc"}}>
                   <VerticalNav tabs={ this.competitionTabs(competition) } active="info" />
                 </div><br />

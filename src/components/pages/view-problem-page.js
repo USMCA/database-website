@@ -7,7 +7,7 @@ import auth from "../../auth";
 import renderKaTeX from "../../katex";
 import { getProposal, upvoteProblem } from "../../actions";
 import { requestStatuses } from "../../actions/types";
-import { ProblemPreview, ExtendedProblemPreview, Solution, HorizontalNav, Counter } from "../utilities";
+import { ProblemPreview, ExtendedProblemPreview, Solution, HorizontalNav, Counter, FlameInput } from "../utilities";
 import TestSolveForm from "../forms/test-solve";
 import SolutionForm from "../forms/solution";
 import CommentForm from "../forms/comment";
@@ -45,8 +45,8 @@ class ViewProbPage extends React.Component {
           <ul>
             <li>Author: { problem.author.name }</li>
             <li>Subject: { problem.subject }</li>
-            <li>Competition: { problem.publicDatabase ? <span className="bold-text">Public Database</span> : problem.competition.short_name }</li>
-            <li>Difficulty: { problem.difficulty || 'N/A' }</li>
+            <li>Competition: { problem.competition.short_name }</li>
+            <FlameInput value={ problem.difficulty } immutable={ true } />
           </ul>
         )
       },

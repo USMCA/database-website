@@ -16,11 +16,6 @@ const Title = ({ fa, title}) => (
 
 const AccountPage = ({ match }) => {
   let accountTabs = {
-    "notifications": {
-      title: () => <Title fa="bell" title="Notifications"/>,
-      to: "/home/notifications",
-      view: () => <NotificationsTab />
-    },
     "competitions": {
       title: () => <Title fa="trophy" title="Competitions"/>,
       to: "/home/competitions",
@@ -30,6 +25,11 @@ const AccountPage = ({ match }) => {
       title: () => <Title fa="pencil-square" title="Problems"/>,
       to: "/home/problems",
       view: () => <ProblemsTab />
+    },
+    "notifications": {
+      title: () => <Title fa="bell" title="Notifications"/>,
+      to: "/home/notifications",
+      view: () => <NotificationsTab />
     },
     "account": {
       title: () => <Title fa="user" title="Account" />,
@@ -45,8 +45,8 @@ const AccountPage = ({ match }) => {
       view: () => <h1>Admin</h1>
     }
   }
- 
-  let active = match.params.tab || "notifications";
+
+  let active = match.params.tab || "competitions";
   if (!(_.find(_.keys(accountTabs), tab => tab === active))) {
     active = "notifications";
   }
